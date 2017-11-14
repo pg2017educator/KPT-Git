@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <script src="script.js" type="text/javascript"></script>
+  </head>
+  <body onLoad="reload()">
+    <div id="headder">
+    日付
+    <select id="date_selector" onChange="change()">
+    </select>
+    <input type="text" id="date" />
+    <input type="button" value="追加" id="create" onClick="add()"/>
+    <input type="button" value="保存" id="save" onClick="save()"/>
+   </div>
+   <div id="body">
+     KEEP
+     <textarea id="keep"></textarea>
+     PROBLEM
+     <textarea id="problem"></textarea>
+     TRY
+     <textarea id="try"></textarea>
+   </div>
+   <div id="log"></div>
+  </body>
+</html>
