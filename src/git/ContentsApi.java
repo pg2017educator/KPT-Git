@@ -13,6 +13,7 @@ public class ContentsApi extends GitApi {
     public Contents getContents(String path) {
         try {
             URL url = new URL(getBaseUrl() + "/contents/" + path);
+            System.out.println(url);
 
             HttpsURLConnection client = (HttpsURLConnection) url.openConnection();
             client.setRequestMethod("GET");

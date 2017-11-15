@@ -55,6 +55,8 @@ public class TinyHttpServer {
 					    this.respondFile(out, "/" + params[2]);
 					} else if(params[1].equals("api")) {
 					    this.respondApi(out, params[2], params[3]);
+					} else {
+					    this.respondOk(out);
 					}
 				} else if (header.isPostMethod()) {
                     System.out.println("body:" + request.getBodyText());
@@ -88,7 +90,7 @@ public class TinyHttpServer {
 
     private void respondOk(OutputStream out) throws IOException {
         HttpResponse response = new HttpResponse(Status.OK);
-        response.addHeader("Constent-Type", "text/html; charset=utf-8");
+        response.addHeader("Content-Type", "text/html; charset=utf-8");
         response.setBodyText("OK");
         response.writeTextTo(out);
     }
@@ -97,7 +99,21 @@ public class TinyHttpServer {
         HttpResponse response = new HttpResponse(Status.OK);
         File file = new File("web" + path);
         response.setBodyFile(file);
+
+        String ext = getFileExt(path);
+        if (ext.equals("html")) {
+            response.addHeader("Content-Type", "text/html; charset=utf-8");
+        }
+
         response.writeFileTo(out);
+    }
+
+    private String getFileExt(String path) {
+        int period = path.lastIndexOf(".");
+        if (period > 0) {
+            return path.substring(period + 1);
+        }
+        return "";
     }
 
 }

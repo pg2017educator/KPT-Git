@@ -15,7 +15,7 @@ import javax.net.ssl.X509TrustManager;
 
 public abstract class GitApi {
     private String owner = "pg2017educator";
-    private String token = "53d43bdd527abbb5567ba4de94423a02f76974bb";
+    private String token = "e82a80d0bf32b8b7179cc495a1a5581eefbc04d5";
     private String repos = "kpt-git-db";
 
     static {

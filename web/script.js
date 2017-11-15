@@ -70,8 +70,7 @@ function add() {
 }
 
 function save() {
-	const date = getFieldValue('date')
-	console.log(date)
+	console.log('保存ボタンが押されました')
 }
 
 function execute(params) {
