@@ -10,6 +10,11 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class ContentsApi extends GitApi {
 
+    /**
+     * 指定したパスのコンテンツを取得する
+     * @param path パス
+     * @return 指定したパスのコンテンツ。
+     */
     public Contents getContents(String path) {
         try {
             URL url = new URL(getBaseUrl() + "/contents/" + path);
@@ -46,6 +51,11 @@ public class ContentsApi extends GitApi {
         return null;
     }
 
+    /**
+     * 指定したパスに、ファイルを保存する。パスが存在しなければ新規の作成し、パスが存在していれば上書きする。
+     * @param path パス
+     * @param content ファイルの内容
+     */
     public void saveFile(String path, String content) {
         Contents file = getContents(path);
         if (file.isExist()) {
@@ -56,6 +66,11 @@ public class ContentsApi extends GitApi {
 
     }
 
+    /**
+     * 指定したパスに、ファイルを新規に作成する。
+     * @param path パス
+     * @param content ファイルの内容
+     */
     public void createFile(String path, String content) {
         StringBuffer param = new StringBuffer();
         param.append("\n{");
@@ -94,6 +109,12 @@ public class ContentsApi extends GitApi {
 
     }
 
+    /**
+     * 指定したハッシュのファイルを、パス名で更新する。
+     * @param path パス
+     * @param content ファイルの内容
+     * @param sha 既存ファイルのハッシュ
+     */
     public void updateFile(String path, String content, String sha) {
         StringBuffer param = new StringBuffer();
         param.append("\n{");
