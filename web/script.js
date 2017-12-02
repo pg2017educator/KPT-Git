@@ -90,10 +90,6 @@ kpts[date] = {
 		'T':[tryed]
 	}
 	console.log(kpts)
-	
-	//var ooo = '{'+date+': { "K": [+'keep'+]}}
-	//console.log(ooo)
-
 
 
 /*var obj = {
