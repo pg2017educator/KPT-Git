@@ -8,11 +8,13 @@ function reload() {
 
 	execute(paramsGetKpt)
 }
-
+var obj = {}
 var kpts = {}
 function setDateList(resText) {
 	console.log(resText)
 
+	obj=resText
+	console.log(obj)
 	kpts = JSON.parse(resText)
 	const dateSelector = document.getElementById('date_selector')
 
@@ -71,9 +73,76 @@ function add() {
 
 function save() {
 	console.log('保存ボタンが押されました')
+	const date = getFieldValue('date_selector')
+	console.log(date)
+	const keep = getFieldValue('keep')
+	console.log(keep)
+	const problem = getFieldValue('problem')
+	console.log(problem)
+	const tryed = getFieldValue('try')
+	
+	console.log(tryed)	
+	
+//	var objorg = JSON.parse(obj)
+kpts[date] = {
+		'K':[keep],
+		'P':[problem],
+		'T':[tryed]
+	}
+	console.log(kpts)
+	
+	//var ooo = '{'+date+': { "K": [+'keep'+]}}
+	//console.log(ooo)
+
+
+
+/*var obj = {
+
+ "2017/12/13": {
+ "K": [
+"良いことがあった",
+"これから続けたい"
+],
+"P": ["不満がある"],
+"T": ["がんばる"]
+},
+ "2017/12/14": {
+"K": [
+ "良いことがあった",
+"これは続ける。"
+],
+ "P": [
+ "これは問題"
+  ],
+ "T": [
+  "次はがんばる"
+ ]
+ },
+ "2017/12/15": {
+ "K": [
+  "はじめてのKPT"
+  ],
+ "P": [],
+ "T": [
+ "トライする"
+]
+}
+} */
+
+
+	
+	const paramsPostKpt = {
+	'method' : 'POST',
+	'url' : 'http://localhost:8080/api/nobody/items',
+	'data' : kpts,
+	'date' : date
+	}
+//	console.log(paramsPostKpt)
+	execute(paramsPostKpt)
 }
 
 function execute(params) {
+	console.log(params.data)
 	const xhr = new XMLHttpRequest()
 	xhr.onreadystatechange = function() {
 		switch (xhr.readyState) {
@@ -92,6 +161,7 @@ function execute(params) {
 		case 4: // データ受信完了.
 			if (xhr.status == 200 || xhr.status == 201 || xhr.status == 304) {
 				console.log(xhr.getAllResponseHeaders())
+				console.log(obj)
 				if (params.callback) {
 					params.callback(xhr.responseText)
 				}
@@ -106,11 +176,18 @@ function execute(params) {
 	console.log(params)
 	xhr.open(params.method, params.url, true)
 	for (let name in params.headers) {
-		xhr.setRequestHeader(name, params.headers[name])
+	//	xhr.setRequestHeader(name, params.headers[name])
+	//	xhr.setRequestHeader(name, application/json)
+		console.log("twetwtwetwtwt")
+		cosole.log(params.headers[name])
 	}
-	if (params.data) {
+//	if (params.data) {
+	if (params.method == "POST") {
+		console.log("if")
+		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
 		xhr.send(JSON.stringify(params.data))
 	} else {
+		console.log("else")
 		xhr.send(null)
 	}
 

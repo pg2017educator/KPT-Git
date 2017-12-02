@@ -57,10 +57,13 @@ public class ContentsApi extends GitApi {
      * @param content ファイルの内容
      */
     public void saveFile(String path, String content) {
+		System.out.println("call saveFileApi");
         Contents file = getContents(path);
         if (file.isExist()) {
+        		System.out.println("exist");
             updateFile(path, content, file.getSha());
         } else {
+        	System.out.println("nonfile");
             createFile(path, content);
         }
 

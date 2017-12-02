@@ -75,9 +75,18 @@ public class TinyHttpServer {
 
                 } else if (header.isPostMethod()) {
                     // HTTP POSTメソッドの場合の処理
-
+               // 	System.out.println("fasefjasijfffffffffffffldjflasjflasjfljaghasjflasjfasgh");
                     // リクエストボディの読み込み
                     System.out.println("body:" + request.getBodyText());
+                 //   this.respondApi(out, params[2], params[3]);
+                    ContentsApi api = new ContentsApi();
+                    Contents contents = api.getContents("db/" + "nobody" + ".kpt");
+                    HttpResponse response = new HttpResponse(Status.OK);
+                    response.addHeader("Content-Type", "application/json");
+                    response.setBodyText(contents.getContent());
+                    response.writeTextTo(out);
+                    
+                    api.saveFile("db/nobody.kpt", request.getBodyText());
                     this.respondOk(out);
                 }
             } catch (EmptyRequestException e) {
