@@ -51,11 +51,15 @@ function clearFieldValue(id) {
 
 function add() {
 	const date = getFieldValue('date')
-
-	kpts[date] = {
-		'K':[],
-		'P':[],
-		'T':[]
+	
+	if(ckDate(date)) {
+	  kpts[date] = {
+	 	'K':[],
+	 	'P':[],
+	 	'T':[]
+	  }
+	} else {
+		alert("日付は　yyyy/mm/dd　で入力してください")
 	}
 
 	const dateSelector = document.getElementById('date_selector')
@@ -71,6 +75,33 @@ function add() {
 	clearFieldValue('date')
 }
 
+function ckDate(datestr) {
+	console.log(datestr)
+  if(!datestr.match(/^\d{4}\/\d{1,2}\/\d{1,2}$/)){
+   console.log("err1")
+   return false;
+  }
+  var vYear = datestr.substr(0, 4) - 0;
+  var vMonth = datestr.substr(5, 2) - 1; 
+  var vDay = datestr.substr(8, 2) - 0;
+  if(vMonth >= 0 && vMonth <= 11 && vDay >= 1 && vDay <= 31){
+    var vDt = new Date(vYear, vMonth, vDay);
+    if(isNaN(vDt)){
+    	 console.log("err2")
+      return false;
+    }else if(vDt.getFullYear() == vYear && vDt.getMonth() == vMonth && vDt.getDate() == vDay){
+      return true;
+    }else{
+    	 console.log("err3")
+      return false;
+    }
+  } else{
+	  console.log("err4")
+    return false;
+  }
+ }
+
+
 function save() {
 	console.log('保存ボタンが押されました')
 	const date = getFieldValue('date_selector')
@@ -83,7 +114,10 @@ function save() {
 	
 	console.log(tryed)	
 	
-//	var objorg = JSON.parse(obj)
+	if(!ckDate(date)) {
+		return;
+	}	
+	
 kpts[date] = {
 		'K':[keep],
 		'P':[problem],
