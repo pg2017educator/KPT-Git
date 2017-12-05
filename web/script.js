@@ -131,6 +131,25 @@ function login() {
 
 }
 
+function del() {
+	const date = getFieldValue('date_selector')
+
+	delete kpts[date];
+
+	document.getElementById('date_selector').value = '\r'
+	document.getElementById('keep').value = '\r'
+	document.getElementById('problem').value = '\r'
+	document.getElementById('try').value = '\r'
+
+	const paramsPostKpt = {
+		'method' : 'POST',
+		'url' : 'http://localhost:8080/api/'+user+'/items',
+		'data' : kpts
+//		'date' : date
+	}
+	execute(paramsPostKpt)
+}
+
 
 function save() {
 	console.log('保存ボタンが押されました')
