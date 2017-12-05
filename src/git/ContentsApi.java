@@ -21,18 +21,28 @@ public class ContentsApi extends GitApi {
             System.out.println(url);
 
             HttpsURLConnection client = (HttpsURLConnection) url.openConnection();
+
+
             client.setRequestMethod("GET");
             client.setRequestProperty("Authorization", getBasicAuthHeadder());
             client.connect();
 
+            // pathで指定したファイルが存在しない場合
+            if (client.getResponseCode() == 404) {
+            	//空のファイルを作成
+            	createFile(path, "{}");
+
+            	client = (HttpsURLConnection) url.openConnection();
+
+                client.setRequestMethod("GET");
+                client.setRequestProperty("Authorization", getBasicAuthHeadder());
+                client.connect();
+
+            }
+
             System.out.println("Response Code:" + client.getResponseCode());
             Map<String, List<String>> headers = client.getHeaderFields();
             System.out.println(headers);
-
-            // pathで指定したファイルが存在しない場合
-            if (client.getResponseCode() == 404) {
-                return new Contents(null);
-            }
 
             StringBuffer resBody = new StringBuffer();
             BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));

@@ -1,5 +1,6 @@
 function reload() {
 	console.log("reload()")
+/*
 	const paramsGetKpt = {
 		'method' : 'GET',
 		'url' : 'http://localhost:8080/api/nobody/items',
@@ -7,9 +8,11 @@ function reload() {
 	}
 
 	execute(paramsGetKpt)
+*/
 }
 var obj = {}
 var kpts = {}
+var user
 function setDateList(resText) {
 	console.log(resText)
 
@@ -36,9 +39,19 @@ function change() {
 	const kpt = kpts[dateSelector.value]
 	console.log(kpt)
 
+	//kptsが空の場合
+	if(!Object.keys(kpts).length){
+		document.getElementById('keep').value = '\r'
+		document.getElementById('problem').value = '\r'
+		document.getElementById('try').value = '\r'
+//		document.getElementById('date_selector').value = '\r'
+		return;
+	}
+
 	document.getElementById('keep').value = kpt.K.join('\r')
 	document.getElementById('problem').value = kpt.P.join('\r')
 	document.getElementById('try').value = kpt.T.join('\r')
+
 }
 
 function getFieldValue(id) {
@@ -51,7 +64,7 @@ function clearFieldValue(id) {
 
 function add() {
 	const date = getFieldValue('date')
-	
+
 	if(ckDate(date)) {
 	  kpts[date] = {
 	 	'K':[],
@@ -82,7 +95,7 @@ function ckDate(datestr) {
    return false;
   }
   var vYear = datestr.substr(0, 4) - 0;
-  var vMonth = datestr.substr(5, 2) - 1; 
+  var vMonth = datestr.substr(5, 2) - 1;
   var vDay = datestr.substr(8, 2) - 0;
   if(vMonth >= 0 && vMonth <= 11 && vDay >= 1 && vDay <= 31){
     var vDt = new Date(vYear, vMonth, vDay);
@@ -101,6 +114,23 @@ function ckDate(datestr) {
   }
  }
 
+function login() {
+	user=getFieldValue('user');
+
+	//初期化
+	var obj = {}
+	var kpts = {}
+
+	const paramsGetKpt = {
+			'method' : 'GET',
+			'url' : 'http://localhost:8080/api/'+user+'/items',
+			'callback' : setDateList // データを取得し終わったらsetDateList関数を呼び出す
+	}
+
+	execute(paramsGetKpt)
+
+}
+
 
 function save() {
 	console.log('保存ボタンが押されました')
@@ -111,13 +141,12 @@ function save() {
 	const problem = getFieldValue('problem')
 	console.log(problem)
 	const tryed = getFieldValue('try')
-	
-	console.log(tryed)	
-	
+	console.log(tryed)
+
 	if(!ckDate(date)) {
 		return;
-	}	
-	
+	}
+
 kpts[date] = {
 		'K':[keep],
 		'P':[problem],
@@ -160,10 +189,10 @@ kpts[date] = {
 } */
 
 
-	
+
 	const paramsPostKpt = {
 	'method' : 'POST',
-	'url' : 'http://localhost:8080/api/nobody/items',
+	'url' : 'http://localhost:8080/api/'+user+'/items',
 	'data' : kpts,
 	'date' : date
 	}

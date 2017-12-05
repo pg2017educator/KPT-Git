@@ -53,11 +53,13 @@ public class TinyHttpServer {
 
                 System.out.println("path:" + header.getPath());
 
+                String[] params = header.getPath().split("/");
+
                 if (header.isGetMethod()) {
                     // HTTP GETメソッドの場合の処理
 
                     // パスの切り分け
-                    String[] params = header.getPath().split("/");
+                    //String[] params = header.getPath().split("/");
                     System.out.println(Arrays.toString(params));
 
                     if (params[1].equals("html")) {
@@ -67,7 +69,6 @@ public class TinyHttpServer {
                     } else if(params[1].equals("api")) {
                         // パスがapiだったら、Githubのapiを呼び出し、その結果をクライアントに返す
                         this.respondApi(out, params[2], params[3]);
-
                     } else {
                         // パスが、htmlでも、apiでもなければ、OKだけ返す
                         this.respondOk(out);
@@ -85,8 +86,8 @@ public class TinyHttpServer {
                     response.addHeader("Content-Type", "application/json");
                     response.setBodyText(contents.getContent());
                     response.writeTextTo(out);
-                    
-                    api.saveFile("db/nobody.kpt", request.getBodyText());
+
+                    api.saveFile("db/" + params[2] + ".kpt", request.getBodyText());
                     this.respondOk(out);
                 }
             } catch (EmptyRequestException e) {
@@ -107,7 +108,6 @@ public class TinyHttpServer {
         // Github APIを呼び出す
         ContentsApi api = new ContentsApi();
         Contents contents = api.getContents("db/" + user + ".kpt");
-
 
         HttpResponse response = new HttpResponse(Status.OK);
         response.addHeader("Content-Type", "application/json");
