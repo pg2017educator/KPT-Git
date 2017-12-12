@@ -73,6 +73,8 @@ function add() {
 	  }
 	} else {
 		alert("日付は　yyyy/mm/dd　で入力してください")
+		document.getElementById('date').value = '\r'
+		return
 	}
 
 	const dateSelector = document.getElementById('date_selector')
