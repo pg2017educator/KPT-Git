@@ -8,27 +8,27 @@
   <h1>KPT管理システム</h1>
     <div id="headder">
     ユーザ
-     <textarea id="user"></textarea>
-    <input type="button" value="ログイン" id="login" onClick="login()"/>
+     <textarea id="user" class="taxtarea"></textarea>
+    <input type="button" value="ログイン" id="login" class="button" onClick="login()"/>
     <br><br>
     日付
     <select id="date_selector" onChange="change()">
     </select>
-    <input type="text" id="date"/>
-    <input type="button" value="追加" id="create" onClick="add()"/>
+    <input type="text" id="date" class="taxtarea"/>
+    <input type="button" value="追加" id="create" class="button" onClick="add()"/>
 <!--      <input type="button" value="保存" id="save" onClick="save()"/> -->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="button" value="削除" id="delete" onClick="del()"/>
+    <input type="button" value="削除" id="delete" class="button" onClick="del()"/>
    </div>
    <div id="body">
      KEEP
-     <textarea id="keep" rows="4" cols="40"></textarea>
+     <textarea id="keep" rows="4" cols="40" class="taxtarea"></textarea>
      PROBLEM
-     <textarea id="problem"rows="4" cols="40"></textarea>
+     <textarea id="problem"rows="4" cols="40" class="taxtarea"></textarea>
      TRY
-     <textarea id="try"rows="4" cols="40"></textarea>
+     <textarea id="try"rows="4" cols="40" class="taxtarea"></textarea>
    </div>
-   <input type="button" value="保存" id="save" onClick="save()"/>
+   <input type="button" value="保存" id="save" class="button" onClick="save()"/>
    <div id="log"></div>
    <p>～使い方～</p>
    <p>１．ユーザを入力し（半角英数字）「ログイン」を押下</p>
