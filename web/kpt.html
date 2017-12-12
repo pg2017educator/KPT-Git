@@ -5,6 +5,7 @@
     <script src="script.js" type="text/javascript"></script>
   </head>
   <body onLoad="reload()">
+  <h1>KPT管理システム</h1>
     <div id="headder">
     ユーザ
      <textarea id="user"></textarea>
@@ -13,20 +14,29 @@
     日付
     <select id="date_selector" onChange="change()">
     </select>
-    <input type="text" id="date" />
+    <input type="text" id="date"/>
     <input type="button" value="追加" id="create" onClick="add()"/>
-    <input type="button" value="保存" id="save" onClick="save()"/>
+<!--      <input type="button" value="保存" id="save" onClick="save()"/> -->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="button" value="削除" id="delete" onClick="del()"/>
    </div>
    <div id="body">
      KEEP
-     <textarea id="keep"></textarea>
+     <textarea id="keep" rows="4" cols="40"></textarea>
      PROBLEM
-     <textarea id="problem"></textarea>
+     <textarea id="problem"rows="4" cols="40"></textarea>
      TRY
-     <textarea id="try"></textarea>
+     <textarea id="try"rows="4" cols="40"></textarea>
    </div>
+   <input type="button" value="保存" id="save" onClick="save()"/>
    <div id="log"></div>
+   <p>～使い方～</p>
+   <p>１．ユーザを入力し（半角英数字）「ログイン」を押下</p>
+   <p>２．KPT対象の日時を入力(YYYY/MM/DD)形式で入力し、「追加」を押下</p>
+   <p>３．KTP入力後、「保存」を押下</p>
+
+   <p>～注意点～</p>
+   <p>・ユーザは半角英数字で入力</p>
+   <p>・日付は YYYY/MM/DD 形式で入力</p>
   </body>
 </html>
